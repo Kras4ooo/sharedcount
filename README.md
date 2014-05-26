@@ -7,7 +7,7 @@ This is a small bookcase that link returns filed by attendance reported by the f
 from shared_count import SharedCount 
 counters = SharedCount ('http://www.example.com'). get_counts () 
 
-facebook = counters ['Facebook'] 
-twitter = counters ['Twitter'] 
-linkedin = counters ['Linkedin']
+facebook = counters ['Facebook'] [['normalized_url'], ['commentsbox_count'], ['click_count'], ['url'], ['total_count'], ['comment_count'], ['like_count'], ['comments_fbid'], ['share_count']]
+twitter = counters ['Twitter'] [['count'], ['url']]
+linkedin = counters ['Linkedin'] [['count'], ['url'], ['fCntPlusOne'], ['fCnt']]
 ```
