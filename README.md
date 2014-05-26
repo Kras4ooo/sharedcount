@@ -1,7 +1,7 @@
 sharedcount
 ===========
 
-This is a small bookcase that link returns filed by attendance reported by the following social networks: Facebook, Twitter and Linkedin. How can use the library: 
+This is a small library that link returns filed by attendance reported by the following social networks: Facebook, Twitter and Linkedin. How can use the library: 
 
 ```
 from shared_count import SharedCount 
