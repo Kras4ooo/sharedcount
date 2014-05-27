@@ -22,15 +22,15 @@ class SharedCount(object):
 
     def get_linkedin_count(self):
         query = "http://www.linkedin.com/countserv/count/share?url=%s&format=json" % urllib.quote(self.url)
-        return json.loads(urllib2.build_opener().open(query).read())
+        return self.to_json(query)
 
     def get_google_plus_count(self):
         query = "http://cdn.api.twitter.com/1/urls/count.json?url=%s" %  urllib.quote(self.url)
-        return json.loads(urllib2.build_opener().open(query).read())
+        return self.to_json(query)
 
     def get_twitter_count(self):
         query = "http://cdn.api.twitter.com/1/urls/count.json?url=%s" %  urllib.quote(self.url)
-        return json.loads(urllib2.build_opener().open(query).read())
+        return self.to_json(query)
 
     def get_facebook_count(self):
         fql = "SELECT url, normalized_url, share_count, like_count, comment_count, " \
@@ -38,7 +38,7 @@ class SharedCount(object):
 		"link_stat WHERE url = '%s'" % self.url
 
         query = "https://api.facebook.com/method/fql.query?format=json&query=%s" % urllib.quote(fql)
-        return json.loads(urllib2.build_opener().open(query).read())[0]
+        return self.to_json(query)[0]
 
     def get_google_count(self):
         query = "https://plusone.google.com/_/+1/fastbutton?url=%s" % urllib.quote(self.url)
@@ -50,8 +50,11 @@ class SharedCount(object):
 
     def get_buffer_share_count(self):
         query = "https://api.bufferapp.com/1/links/shares.json?url=%s" % urllib.quote(self.url)
-        return json.loads(urllib2.build_opener().open(query).read())
+        return self.to_json(query)
 
     def get_pinterest_count(self):
         query = "https://api.pinterest.com/v1/urls/count.json?callback=jsonp&url=%s" % urllib.quote(self.url)
+        return self.to_json(query)
+
+    def to_json(self, query):
         return json.loads(urllib2.build_opener().open(query).read())
