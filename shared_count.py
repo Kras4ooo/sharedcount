@@ -1,6 +1,8 @@
 import urllib
 import urllib2
 
+from bs4 import BeautifulSoup
+
 import json
 
 class SharedCount(object):
@@ -12,6 +14,9 @@ class SharedCount(object):
                         'Facebook': self.get_facebook_count(),
                         'Twitter': self.get_twitter_count(),
                         'Linkedin': self.get_linkedin_count(),
+                        'Google': self.get_google_count(),
+                        'BufferShare': self.get_buffer_share_count(),
+                       #TODO: 'Pinterest': self.get_pinterest_count(),
                       }
         return dict_counts
 
@@ -34,3 +39,19 @@ class SharedCount(object):
 
         query = "https://api.facebook.com/method/fql.query?format=json&query=%s" % urllib.quote(fql)
         return json.loads(urllib2.build_opener().open(query).read())[0]
+
+    def get_google_count(self):
+        query = "https://plusone.google.com/_/+1/fastbutton?url=%s" % urllib.quote(self.url)
+        response = urllib2.urlopen(query)
+        soup = BeautifulSoup(response.read())
+        data = soup.find(id="aggregateCount").text
+        count = {"share_count": data}
+        return json.loads(json.dumps(count))
+
+    def get_buffer_share_count(self):
+        query = "https://api.bufferapp.com/1/links/shares.json?url=%s" % urllib.quote(self.url)
+        return json.loads(urllib2.build_opener().open(query).read())
+
+    def get_pinterest_count(self):
+        query = "https://api.pinterest.com/v1/urls/count.json?callback=jsonp&url=%s" % urllib.quote(self.url)
+        return json.loads(urllib2.build_opener().open(query).read())

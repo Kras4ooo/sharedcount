@@ -20,5 +20,13 @@ class TestSequenceFunctions(unittest.TestCase):
         linkedin_res = self.counters['Linkedin']
         self.assertTrue(type(linkedin_res) is dict)
 
+    def test_google_plus(self):
+        google_plus_res = self.counters['Google']
+        self.assertTrue(type(google_plus_res) is dict)
+
+    def test_buffer_share(self):
+        buffer_share_res = self.counters['BufferShare']
+        self.assertTrue(type(buffer_share_res) is dict)
+
 if __name__ == '__main__':
     unittest.main()
